@@ -1,4 +1,4 @@
-package sk.amokk.imagesorter;
+package sk.amokk.imagesorter.gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +22,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JFrame;
 import javax.swing.JDialog;
+
+import sk.amokk.imagesorter.FileRecursive;
+import sk.amokk.imagesorter.ImageUtils;
+import sk.amokk.imagesorter.JImagePanel;
 
 public class ImageSorter {
 
@@ -230,6 +234,16 @@ public class ImageSorter {
 			cutMenuItem.setText("Cut");
 			cutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
 					Event.CTRL_MASK, true));
+			cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					BufferedImage bimg = ImageUtils.loadImage(new File("/mnt/data1/fotky/florida/new.york/dcim/100km763/100_2736.jpg"));
+					JImagePanel jip = new JImagePanel(bimg);
+					jFrame.remove(getJImagePanel());
+					jFrame.add(jip);
+					jFrame.pack();
+				}
+			});
+			
 		}
 		return cutMenuItem;
 	}
@@ -285,8 +299,9 @@ public class ImageSorter {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-//				ImageSorter application = new ImageSorter();
-//				application.getJFrame().setVisible(true);
+				
+				ImageSorter application = new ImageSorter();
+				application.getJFrame().setVisible(true);
 				FileRecursive fr = new FileRecursive("/mnt/data1/fotky/florida");
 				FilenameFilter filter = new FilenameFilter() {
 			        public boolean accept(File dir, String name) {
@@ -298,6 +313,7 @@ public class ImageSorter {
 				for (File file : fff) {
 					System.out.println(file);
 				}
+				System.out.println(fff.length);
 				
 			}
 		});

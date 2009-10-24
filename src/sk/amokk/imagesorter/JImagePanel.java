@@ -1,6 +1,7 @@
 package sk.amokk.imagesorter;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -17,6 +18,6 @@ public class JImagePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
-		//g.drawImage(img, 0, 0, null);
 	}
 }
+

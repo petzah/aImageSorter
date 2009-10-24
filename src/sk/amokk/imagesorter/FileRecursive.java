@@ -29,7 +29,7 @@ public class FileRecursive extends File {
 		list.addAll(Arrays.asList(filesAndDirs));
 		
 		for (File file : filesAndDirs) {
-			if (file.isDirectory() && file.canRead() && (file != null)) // make exceptions from these
+			if (file.isDirectory() && file.canRead() && (file != null)) //TODO should be exceptions 
 				listFilesRecursive(file);
 		}
 		return (File[])(list.toArray(new File[list.size()]));
