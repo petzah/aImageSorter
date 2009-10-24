@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.KeyStroke;
 import java.awt.Point;
 import java.io.File;
+import java.io.FilenameFilter;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -68,7 +69,7 @@ public class ImageSorter {
 	
 	private JImagePanel getJImagePanel() {
 		if (jImagePanel == null) {
-			BufferedImage bimg = MyImage.loadImage(new File("/mnt/data1/fotky/florida/new.york/dcim/100km763/100_2737.jpg"));
+			BufferedImage bimg = ImageUtils.loadImage(new File("/mnt/data1/fotky/florida/new.york/dcim/100km763/100_2737.jpg"));
 			jImagePanel = new JImagePanel(bimg);
 			jImagePanel.setLayout(new BorderLayout());
 		}
@@ -284,8 +285,20 @@ public class ImageSorter {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				ImageSorter application = new ImageSorter();
-				application.getJFrame().setVisible(true);
+//				ImageSorter application = new ImageSorter();
+//				application.getJFrame().setVisible(true);
+				FileRecursive fr = new FileRecursive("/mnt/data1/fotky/florida");
+				FilenameFilter filter = new FilenameFilter() {
+			        public boolean accept(File dir, String name) {
+			            return name.contains("jpg");
+			        }
+			    };
+
+				File[] fff = fr.listFilesRecursive(filter);
+				for (File file : fff) {
+					System.out.println(file);
+				}
+				
 			}
 		});
 	}

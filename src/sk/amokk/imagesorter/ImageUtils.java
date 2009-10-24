@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class MyImage {
+public class ImageUtils {
 	
 
 	
@@ -19,7 +19,15 @@ public class MyImage {
 			e.printStackTrace();  
 		}  
 		return bimg;  
-	}  
+	} 
+	
+	public static File[] scanDirectory(File f) {
+		if (!f.isDirectory()) {
+			throw new IllegalArgumentException(f + "is not a directory");
+		}
+		
+		return null;
+	}
 
 
 }
