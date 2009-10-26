@@ -1,12 +1,12 @@
 package sk.amokk.imagesorter;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 public class JImagePanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private BufferedImage img;
 	
 	public JImagePanel(BufferedImage bimg) {
