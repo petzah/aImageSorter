@@ -1,15 +1,12 @@
-package sk.amokk.imagesorter;
+package sk.amokk.imagesorter.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Properties;
-
 
 import javax.imageio.ImageIO;
+
+import sk.amokk.imagesorter.FileRecursive;
 
 public class ImageUtils {
 	
@@ -18,38 +15,7 @@ public class ImageUtils {
 	
 	private ImageUtils(){}
 	
-	public static void props() {
-		// create and load default properties
-		Properties defaultProps = new Properties();
-		// create application properties with default
-		Properties applicationProps = new Properties(defaultProps);
-		
-		FileInputStream in;
-		try {
-			
-			in = new FileInputStream("defaultProperties");
-			defaultProps.load(in);
-			in.close();
-			
-			// now load properties from last invocation
-			in = new FileInputStream("appProperties");
-			applicationProps.load(in);
-			in.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-
-		
-
-	}
+	
 	
 	public static BufferedImage loadImage(File f) {  
 		BufferedImage bimg = null;  

@@ -8,10 +8,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import sk.amokk.imagesorter.ImageUtils;
-import javax.swing.JLabel;
-import javax.swing.text.JTextComponent;
+import sk.amokk.imagesorter.utils.ImageUtils;
+import sk.amokk.imagesorter.utils.PropertiesHandle;
 
+import javax.swing.JLabel;
 
 public class PanelTop extends JPanel {
 
@@ -73,11 +73,12 @@ public class PanelTop extends JPanel {
 					JFileChooser fc = getJFileChooserImagesDirectory();
 					int returnValue = fc.showOpenDialog(ImageSorter.getJFrame());
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
-						String directory = fc.getSelectedFile().getAbsolutePath();
-			            getJTextField().setText(directory);
+						String choosedDir = fc.getSelectedFile().getAbsolutePath();
+			            getJTextField().setText(choosedDir);
 			            //TODO fix this ugly line
-			            ImageUtils.listImages = ImageUtils.getImages(directory);
+			            ImageUtils.listImages = ImageUtils.getImages(choosedDir);
 			            getJLabelCountImages().setText(""+ImageUtils.listImages.length);
+			            PropertiesHandle.properties.setProperty("lastOpenedDir", choosedDir);
 					}
 				}
 			});
@@ -95,7 +96,7 @@ public class PanelTop extends JPanel {
 
 	private JFileChooser getJFileChooserImagesDirectory() {
 		if (jFileChooserGetImagesDirectory == null) {
-			jFileChooserGetImagesDirectory = new JFileChooser();
+			jFileChooserGetImagesDirectory = new JFileChooser(PropertiesHandle.properties.getProperty("lastOpenedDir"));
 			jFileChooserGetImagesDirectory.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		}
 		return jFileChooserGetImagesDirectory;

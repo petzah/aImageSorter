@@ -1,19 +1,19 @@
 package sk.amokk.imagesorter.gui;
 
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 
 import javax.swing.SwingUtilities;
-import java.io.File;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
-import sk.amokk.imagesorter.ImageUtils;
 import sk.amokk.imagesorter.actions.ActionNext;
+import sk.amokk.imagesorter.utils.PropertiesHandle;
 
 public class ImageSorter extends JFrame  {
 
@@ -37,9 +37,18 @@ public class ImageSorter extends JFrame  {
 		this.setTitle("aImageSorter");
 		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "next");
 		this.getRootPane().getActionMap().put("next", ActionNext.getInstance());
+		this.addWindowListener( new WindowAdapter() {
+		      public void windowClosing(WindowEvent e) {
+		        quit();
+		      }
+		 });
 		
 	}
 	
+	protected void quit() {
+		PropertiesHandle.store();
+		System.exit(0);
+	}
 	public static JFrame getJFrame() {
 		if (jFrame == null) {
 			jFrame = new ImageSorter();
@@ -81,9 +90,9 @@ public class ImageSorter extends JFrame  {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				ImageUtils.props();
+				PropertiesHandle.load();
 				ImageSorter.getJFrame().setVisible(true);
-							
+				ImageSorter.getJFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}
 		});
 	}

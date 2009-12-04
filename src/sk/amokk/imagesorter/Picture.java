@@ -10,7 +10,7 @@ public class Picture extends JPanel {
 	private BufferedImage img;
 	
 	public Picture(BufferedImage bimg) {
-		super(false);
+		super(true);
 		this.img = bimg;
 	}	
 	

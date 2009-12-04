@@ -14,8 +14,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import sk.amokk.imagesorter.ImageUtils;
 import sk.amokk.imagesorter.Picture;
+import sk.amokk.imagesorter.utils.ImageUtils;
 
 
 public class MenuBarTop extends JMenuBar {
