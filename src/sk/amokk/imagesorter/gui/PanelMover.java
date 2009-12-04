@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.actions.ActionMove;
+import sk.amokk.imagesorter.actions.ActionNext;
+
 import javax.swing.JRadioButton;
 
 
@@ -25,8 +28,8 @@ public class PanelMover extends JPanel {
 	private JFileChooser jFileChooser;
 	protected PanelMover pm = null;
 	protected String path = null;
-	private JRadioButton jRadioButton = null;
-	private JRadioButton jRadioButton1 = null;
+	private JRadioButton jRadioButtonCopy = null;
+	private JRadioButton jRadioButtonMove = null;
 	
 
 	public int getNumber() {
@@ -60,10 +63,17 @@ public class PanelMover extends JPanel {
 		this.add(getButtonMove(), null);
 		this.add(getJTextField(), null);
 		this.add(getButtonChooser(), null);
-		this.add(getJRadioButton(), null);
-		this.add(getJRadioButton1(), null);
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(""+number), "huhu");
-		this.getActionMap().put("huhu", new ActionMove(this));
+		this.add(getJRadioButtonCopy(), null);
+		this.add(getJRadioButtonMove(), null);
+		//TODO fix next two lines (bad hack to fire two actions by one keybinding)
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(""+number), "move");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released "+number), "next");
+		this.getActionMap().put("move", new ActionMove(this));
+		this.getActionMap().put("next", ActionNext.getInstance());
+	
+		ButtonGroup group = new ButtonGroup();
+		group.add(getJRadioButtonCopy());
+		group.add(getJRadioButtonMove());
 		
 	}
 
@@ -81,6 +91,8 @@ public class PanelMover extends JPanel {
 		}
 		return jTextField;
 	}
+	
+	
 
 	/**
 	 * This method initializes jButton	
@@ -90,14 +102,16 @@ public class PanelMover extends JPanel {
 	private JButton getButtonChooser() {
 		if (chooserButton == null) {
 			chooserButton = new JButton("...");
+			chooserButton.setFocusable(false);
 			chooserButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFileChooser fc = getJFileChooser();
-					int returnValue = fc.showOpenDialog(pm);
+					int returnValue = fc.showOpenDialog(ImageSorter.getJFrame());
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						path = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(path);
 					}
+					
 
 				}
 			});
@@ -113,8 +127,10 @@ public class PanelMover extends JPanel {
 	private JButton getButtonMove() {
 		if (moveButton == null) {
 			moveButton = new JButton();
-			moveButton.setAction(new ActionMove(this));
+			moveButton.addActionListener(new ActionMove(this));
+			moveButton.addActionListener(ActionNext.getInstance());
 			moveButton.setText(""+number);
+			moveButton.setFocusable(false);
 
 		}
 		return moveButton;
@@ -130,29 +146,23 @@ public class PanelMover extends JPanel {
 	}
 
 
-	/**
-	 * This method initializes jRadioButton	
-	 * 	
-	 * @return javax.swing.JRadioButton	
-	 */
-	private JRadioButton getJRadioButton() {
-		if (jRadioButton == null) {
-			jRadioButton = new JRadioButton("Copy");
+	private JRadioButton getJRadioButtonCopy() {
+		if (jRadioButtonCopy == null) {
+			jRadioButtonCopy = new JRadioButton("Copy");
+			jRadioButtonCopy.setFocusable(false);
 		}
-		return jRadioButton;
+		return jRadioButtonCopy;
 	}
 
 
-	/**
-	 * This method initializes jRadioButton1	
-	 * 	
-	 * @return javax.swing.JRadioButton	
-	 */
-	private JRadioButton getJRadioButton1() {
-		if (jRadioButton1 == null) {
-			jRadioButton1 = new JRadioButton("Move");
+	
+	private JRadioButton getJRadioButtonMove() {
+		if (jRadioButtonMove == null) {
+			jRadioButtonMove = new JRadioButton("Move");
+			jRadioButtonMove.setSelected(true);
+			jRadioButtonMove.setFocusable(false);
 		}
-		return jRadioButton1;
+		return jRadioButtonMove;
 	}
 
 

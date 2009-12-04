@@ -4,3 +4,5 @@ TODO
 	copy/move
 	thread for copy/move
 	thread for displaying image
+	search image by application/x-image instead of filename/extension
+	disable components and enable them by user input in correct order

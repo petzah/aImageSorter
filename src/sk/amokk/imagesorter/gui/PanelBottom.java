@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -37,9 +36,8 @@ public class PanelBottom extends JPanel {
 	 * @return void
 	 */
 	private void initialize() {
-		//this.setSize(210, 470);
 		this.setLayout(new GridBagLayout());
-		this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+		//this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
 		
 		for (int i=0; i<MAX_MOVERS; i++ ) {
 			panels.add(new PanelMover(i+1));

@@ -3,25 +3,28 @@ package sk.amokk.imagesorter.gui;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import java.awt.Dimension;
-import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import sk.amokk.imagesorter.FileRecursive;
+import sk.amokk.imagesorter.ImageUtils;
+import javax.swing.JLabel;
+import javax.swing.text.JTextComponent;
 
-public class PanelGetImagesDirectory extends JPanel {
+
+public class PanelTop extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField jTextField = null;
 	private JButton jButton = null;
 	private JFileChooser jFileChooserGetImagesDirectory;
+	private JLabel jLabelCountImages = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public PanelGetImagesDirectory() {
+	public PanelTop() {
 		super();
 		initialize();
 	}
@@ -36,6 +39,7 @@ public class PanelGetImagesDirectory extends JPanel {
 		this.setLayout(new FlowLayout());
 		this.add(getJTextField());
 		this.add(getJButton(), null);
+		this.add(getJLabelCountImages(), null);
 	}
 
 	/**
@@ -48,6 +52,7 @@ public class PanelGetImagesDirectory extends JPanel {
 			jTextField = new JTextField();
 			jTextField.setText("");
 			jTextField.setPreferredSize(new Dimension(400, 20));
+			jTextField.setEditable(false);
 		}
 		return jTextField;
 	}
@@ -61,21 +66,18 @@ public class PanelGetImagesDirectory extends JPanel {
 		if (jButton == null) {
 			jButton = new JButton();
 			jButton.setText("...");
+			jButton.setFocusable(false);
 			jButton.setPreferredSize(new Dimension(53, 20));
 			jButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFileChooser fc = getJFileChooserImagesDirectory();
-					int returnValue = fc.showOpenDialog(null);
+					int returnValue = fc.showOpenDialog(ImageSorter.getJFrame());
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						String directory = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(directory);
-			            FileRecursive f = new FileRecursive(directory);
-			            
-			            for (File file : f.listFilesRecursive()) {
-			            	
-			            	System.out.println(file.getPath());
-			            }
-			            //ImageUtils.scanDirectory(new File(directory));
+			            //TODO fix this ugly line
+			            ImageUtils.listImages = ImageUtils.getImages(directory);
+			            getJLabelCountImages().setText(""+ImageUtils.listImages.length);
 					}
 				}
 			});
@@ -84,6 +86,13 @@ public class PanelGetImagesDirectory extends JPanel {
 		return jButton;
 	}
 	
+	protected JLabel getJLabelCountImages() {
+		if (jLabelCountImages == null) {
+			jLabelCountImages = new JLabel("0");
+		}
+		return jLabelCountImages;
+	}
+
 	private JFileChooser getJFileChooserImagesDirectory() {
 		if (jFileChooserGetImagesDirectory == null) {
 			jFileChooserGetImagesDirectory = new JFileChooser();
