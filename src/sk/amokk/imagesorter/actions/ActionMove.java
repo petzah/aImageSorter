@@ -20,8 +20,8 @@ public class ActionMove extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		System.out.println(mover);
+		if ((mover.getPath() == null) || mover.getPath().isEmpty() )
+			return;
 		
 		System.out.println("moved to: " + mover.getPath());
 		File image = ImageUtils.getActualImage();

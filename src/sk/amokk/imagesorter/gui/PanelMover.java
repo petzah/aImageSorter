@@ -68,6 +68,7 @@ public class PanelMover extends JPanel {
 		//TODO fix next two lines (bad hack to fire two actions by one keybinding)
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(""+number), "move");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released "+number), "next");
+		
 		this.getActionMap().put("move", new ActionMove(this));
 		this.getActionMap().put("next", ActionNext.getInstance());
 	
@@ -122,7 +123,7 @@ public class PanelMover extends JPanel {
 	/**
 	 * This method initializes jButton1	
 	 * 	
-	 * @return javax.swing.JButton	
+	 * @return javax.swing.JButtonhttp://www.tu-ke.com/forum/4-rocnik-46/modelovanie-a-simulacia/60/	
 	 */
 	private JButton getButtonMove() {
 		if (moveButton == null) {
