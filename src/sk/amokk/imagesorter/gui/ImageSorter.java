@@ -12,8 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import sk.amokk.imagesorter.actions.ActionNext;
 import sk.amokk.imagesorter.utils.PropertiesHandle;
+
 
 public class ImageSorter extends JFrame  {
 
@@ -22,6 +26,7 @@ public class ImageSorter extends JFrame  {
 	private JPanel jContentPane = null;
 	private PanelBottom jPanelRight;
 	private PanelTop jPanelGetImagesDirectory;
+	private static Logger log = Logger.getLogger(ImageSorter.class.getName());
 	
 
 	
@@ -43,10 +48,14 @@ public class ImageSorter extends JFrame  {
 		      }
 		 });
 		
+		//initialize log4j
+		PropertyConfigurator.configure("log4j.properties");
+		log.info("application started");
 	}
 	
 	protected void quit() {
 		PropertiesHandle.store();
+		log.info("application ended");
 		System.exit(0);
 	}
 	public static JFrame getJFrame() {
@@ -90,6 +99,7 @@ public class ImageSorter extends JFrame  {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				
 				PropertiesHandle.load();
 				ImageSorter.getJFrame().setVisible(true);
 				ImageSorter.getJFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
