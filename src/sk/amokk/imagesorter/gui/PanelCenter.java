@@ -27,7 +27,6 @@ public class PanelCenter extends JPanel {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(200,200));
 		this.setLayout(new BorderLayout());
 		BufferedImage image = ImageUtils.loadImage(new File("/home/amokk/temp/tux.jpg"));
@@ -36,16 +35,9 @@ public class PanelCenter extends JPanel {
 	}
 	
 	public static PanelCenter getInstance() {
-		if (instance == null)
+		if (instance == null) 
 			instance = new PanelCenter();
 		return instance;
 	}
-
-	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
-	 */
-	
 
 }

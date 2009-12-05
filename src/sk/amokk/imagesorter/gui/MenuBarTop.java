@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.Picture;
 import sk.amokk.imagesorter.utils.ImageUtils;
 
@@ -34,15 +35,12 @@ public class MenuBarTop extends JMenuBar {
 	private MenuBarTop() {
 		super();
 		initialize();
-		
-		
 	}
 	
 	private void initialize() {
 		this.add(getFileMenu());
 		this.add(getEditMenu());
 		this.add(getHelpMenus());
-		
 	}
 
 	public static MenuBarTop getInstance() {
@@ -98,7 +96,7 @@ public class MenuBarTop extends JMenuBar {
 			exitMenuItem.setText("Exit");
 			exitMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.exit(0);
+					ImageSorter.quit();
 				}
 			});
 		}

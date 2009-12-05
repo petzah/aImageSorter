@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
+import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.actions.ActionMove;
 import sk.amokk.imagesorter.actions.ActionNext;
 

@@ -35,6 +35,8 @@ public class ActionNext extends AbstractAction {
 		if(ImageUtils.listImages == null)
 			return;
 		PanelCenter.getInstance().removeAll();
+		PanelCenter.getInstance().revalidate();
+		PanelCenter.getInstance().repaint();
 		BufferedImage bimg = ImageUtils.loadImage(ImageUtils.getNextImage());
 		PanelCenter.getInstance().add(new Picture(bimg));
 		PanelCenter.getInstance().revalidate();

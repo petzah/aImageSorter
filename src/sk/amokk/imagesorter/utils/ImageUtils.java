@@ -6,12 +6,15 @@ import java.io.FilenameFilter;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import sk.amokk.imagesorter.FileRecursive;
 
 public class ImageUtils {
 	
 	public static File[] listImages;
 	private static int actualImage = 0;
+	private static final Logger log = Logger.getLogger(ImageUtils.class.getName());
 	
 	private ImageUtils(){}
 	
@@ -22,8 +25,8 @@ public class ImageUtils {
 		try {     
 			bimg = ImageIO.read(f);  
 		} catch (Exception e) {  
-			e.printStackTrace();
-			System.err.println("can't read file: " + f);
+			//e.printStackTrace();
+			log.error("can't read file: " + f);
 		}  
 		return bimg;  
 	}
@@ -38,7 +41,7 @@ public class ImageUtils {
 	    FileRecursive f = new FileRecursive(directory);
 	    File[] a = f.listFilesRecursive(filter);
 	    for (File file : a) {
-	    	System.out.println(file.getPath());
+	    	//System.out.println(file.getPath());
 	    }
 	    return a;
 	}

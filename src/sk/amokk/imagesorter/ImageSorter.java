@@ -1,4 +1,4 @@
-package sk.amokk.imagesorter.gui;
+package sk.amokk.imagesorter;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -16,6 +16,10 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import sk.amokk.imagesorter.actions.ActionNext;
+import sk.amokk.imagesorter.gui.MenuBarTop;
+import sk.amokk.imagesorter.gui.PanelBottom;
+import sk.amokk.imagesorter.gui.PanelCenter;
+import sk.amokk.imagesorter.gui.PanelTop;
 import sk.amokk.imagesorter.utils.PropertiesHandle;
 
 
@@ -24,8 +28,8 @@ public class ImageSorter extends JFrame  {
 	private static final long serialVersionUID = 1L;
 	private static JFrame jFrame;
 	private JPanel jContentPane = null;
-	private PanelBottom jPanelRight;
-	private PanelTop jPanelGetImagesDirectory;
+	private PanelBottom jPanelBottom;
+	private PanelTop jPanelTop;
 	private static Logger log = Logger.getLogger(ImageSorter.class.getName());
 	
 
@@ -53,7 +57,7 @@ public class ImageSorter extends JFrame  {
 		log.info("application started");
 	}
 	
-	protected void quit() {
+	public static void quit() {
 		PropertiesHandle.store();
 		log.info("application ended");
 		System.exit(0);
@@ -69,29 +73,28 @@ public class ImageSorter extends JFrame  {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(getPanelGetImagesDirectory(), BorderLayout.NORTH);
+			jContentPane.add(getPanelTop(), BorderLayout.NORTH);
 			jContentPane.add(PanelCenter.getInstance(), BorderLayout.CENTER);
-			jContentPane.add(getPanelRight(), BorderLayout.SOUTH);
+			jContentPane.add(getPanelBottom(), BorderLayout.SOUTH);
 		}
 		return jContentPane;
 	}	
 	
-	private PanelBottom getPanelRight() {
-		if (jPanelRight == null) {
-			jPanelRight = new PanelBottom();
+	private PanelBottom getPanelBottom() {
+		if (jPanelBottom == null) {
+			jPanelBottom = new PanelBottom();
 		}
-		return jPanelRight;
+		return jPanelBottom;
 	}
 	
-	private PanelTop getPanelGetImagesDirectory() {
-		 if (jPanelGetImagesDirectory == null) {
-			 jPanelGetImagesDirectory = new PanelTop();
+	private PanelTop getPanelTop() {
+		 if (jPanelTop == null) {
+			 jPanelTop = new PanelTop();
 		 }
-		 return jPanelGetImagesDirectory;
+		 return jPanelTop;
 	}
 
 
-	
 	
 	/**
 	 * Launches this application

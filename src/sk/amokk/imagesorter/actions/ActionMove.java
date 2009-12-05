@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 
 import org.apache.log4j.Logger;
 
-import sk.amokk.imagesorter.gui.ImageSorter;
+import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.gui.PanelMover;
 import sk.amokk.imagesorter.utils.ImageUtils;
 

@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.utils.ImageUtils;
 import sk.amokk.imagesorter.utils.PropertiesHandle;
 
