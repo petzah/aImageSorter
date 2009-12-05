@@ -12,8 +12,6 @@ import sk.amokk.imagesorter.gui.PanelCenter;
 import sk.amokk.imagesorter.utils.ImageUtils;
 
 public class ActionNext extends AbstractAction {
-	
-	
 	private static final long serialVersionUID = 1L;
 	private static ActionNext instance;
 	private static final Logger log = Logger.getLogger(ActionNext.class.getName());

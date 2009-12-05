@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class PropertiesHandle {
+public class PropertiesHandler {
 	
 	private static String DEF_PROP_FILE = "default.properties";
 	private static String APP_PROP_FILE = "application.properties";
@@ -16,7 +16,7 @@ public class PropertiesHandle {
 	
 	public static Properties properties;
 	
-	private PropertiesHandle() {}
+	private PropertiesHandler() {}
 	
 	public static void store() {
 		FileOutputStream out;

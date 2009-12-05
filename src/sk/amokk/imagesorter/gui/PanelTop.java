@@ -10,7 +10,7 @@ import javax.swing.JButton;
 
 import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.utils.ImageUtils;
-import sk.amokk.imagesorter.utils.PropertiesHandle;
+import sk.amokk.imagesorter.utils.PropertiesHandler;
 
 import javax.swing.JLabel;
 
@@ -79,7 +79,7 @@ public class PanelTop extends JPanel {
 			            //TODO fix this ugly line
 			            ImageUtils.loadImages(choosedDir);
 			            getJLabelCountImages().setText(""+ImageUtils.getListImages().size());
-			            PropertiesHandle.properties.setProperty("lastOpenedDir", choosedDir);
+			            PropertiesHandler.properties.setProperty("lastOpenedDir", choosedDir);
 					}
 				}
 			});
@@ -97,7 +97,7 @@ public class PanelTop extends JPanel {
 
 	private JFileChooser getJFileChooserImagesDirectory() {
 		if (jFileChooserGetImagesDirectory == null) {
-			jFileChooserGetImagesDirectory = new JFileChooser(PropertiesHandle.properties.getProperty("lastOpenedDir"));
+			jFileChooserGetImagesDirectory = new JFileChooser(PropertiesHandler.properties.getProperty("lastOpenedDir"));
 			jFileChooserGetImagesDirectory.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		}
 		return jFileChooserGetImagesDirectory;

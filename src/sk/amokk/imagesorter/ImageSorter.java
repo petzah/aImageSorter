@@ -21,7 +21,7 @@ import sk.amokk.imagesorter.gui.MenuBarTop;
 import sk.amokk.imagesorter.gui.PanelBottom;
 import sk.amokk.imagesorter.gui.PanelCenter;
 import sk.amokk.imagesorter.gui.PanelTop;
-import sk.amokk.imagesorter.utils.PropertiesHandle;
+import sk.amokk.imagesorter.utils.PropertiesHandler;
 
 
 public class ImageSorter extends JFrame  {
@@ -61,7 +61,7 @@ public class ImageSorter extends JFrame  {
 	}
 	
 	public static void quit() {
-		PropertiesHandle.store();
+		PropertiesHandler.store();
 		log.info("application ended");
 		System.exit(0);
 	}
@@ -105,7 +105,7 @@ public class ImageSorter extends JFrame  {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				PropertiesHandle.load();
+				PropertiesHandler.load();
 				ImageSorter.getJFrame().setVisible(true);
 			}
 		});

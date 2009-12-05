@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.ImageSorter;
 import sk.amokk.imagesorter.actions.ActionMove;
-import sk.amokk.imagesorter.actions.ActionNext;
+import sk.amokk.imagesorter.utils.PropertiesHandler;
 
 import javax.swing.JRadioButton;
 
@@ -68,10 +68,10 @@ public class PanelMover extends JPanel {
 		this.add(getJRadioButtonMove(), null);
 		//TODO fix next two lines (bad hack to fire two actions by one keybinding)
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(""+number), "move");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released "+number), "next");
+	//	this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released "+number), "next");
 		
 		this.getActionMap().put("move", new ActionMove(this));
-		this.getActionMap().put("next", ActionNext.getInstance());
+		//this.getActionMap().put("next", ActionNext.getInstance());
 	
 		ButtonGroup group = new ButtonGroup();
 		group.add(getJRadioButtonCopy());
@@ -112,9 +112,8 @@ public class PanelMover extends JPanel {
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						path = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(path);
+			            PropertiesHandler.properties.setProperty("lastDestDir", path);
 					}
-					
-
 				}
 			});
 		}
@@ -130,7 +129,7 @@ public class PanelMover extends JPanel {
 		if (moveButton == null) {
 			moveButton = new JButton();
 			moveButton.addActionListener(new ActionMove(this));
-			moveButton.addActionListener(ActionNext.getInstance());
+			//moveButton.addActionListener(ActionNext.getInstance());
 			moveButton.setText(""+number);
 			moveButton.setFocusable(false);
 
@@ -140,7 +139,7 @@ public class PanelMover extends JPanel {
 
 	private JFileChooser getJFileChooser() {
 		if (jFileChooser == null) {
-			jFileChooser = new JFileChooser();
+			jFileChooser = new JFileChooser(PropertiesHandler.properties.getProperty("lastDestDir"));
 			jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			
 		}

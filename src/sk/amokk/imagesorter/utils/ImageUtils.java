@@ -7,8 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -67,20 +66,12 @@ public class ImageUtils {
 	}
 	
 	public static void copyImage(File imageFile, String pathDestination) {
-	     
-	      InputStream in;
-	      OutputStream out;
 		try {
-			in = new FileInputStream(imageFile);
-			out = new FileOutputStream(pathDestination+File.separator+imageFile.getName());
-
-		      byte[] buf = new byte[1024];
-		      int len;
-		      while ((len = in.read(buf)) > 0){
-		        out.write(buf, 0, len);
-		      }
-		      in.close();
-		      out.close();
+			FileChannel srcChannel = new FileInputStream(imageFile).getChannel();
+			FileChannel dstChannel = new FileOutputStream(pathDestination + File.separator + imageFile.getName()).getChannel();
+			dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
+			srcChannel.close();
+			dstChannel.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
