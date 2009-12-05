@@ -19,11 +19,11 @@ public class FileRecursive extends File {
 	}
 
 
-	public  File[] listFilesRecursive() {
+	public  List<File> listFilesRecursive() {
 		return listFilesRecursive(startDir);
 	}
 	
-	private File[] listFilesRecursive(File start) {
+	private List<File> listFilesRecursive(File start) {
 		
 		File[] filesAndDirs = start.listFiles();
 		list.addAll(Arrays.asList(filesAndDirs));
@@ -32,22 +32,18 @@ public class FileRecursive extends File {
 			if (file.isDirectory() && file.canRead() && (file != null)) //TODO should be exceptions 
 				listFilesRecursive(file);
 		}
-		return (File[])(list.toArray(new File[list.size()]));
+		return list;
 	}
 	
-	public File[] listFilesRecursive(FilenameFilter filter) {
-		File ss[] = listFilesRecursive();
+	public List<File> listFilesRecursive(FilenameFilter filter) {
+		List<File> ss = listFilesRecursive();
 		if (ss == null) return null;
 		List<File> v = new ArrayList<File>();
-		for (int i = 0 ; i < ss.length ; i++) {
-		    if ((filter == null) || filter.accept(this, ss[i].getPath())) {
-		    	v.add(ss[i]);
+		for (int i = 0; i < ss.size() ; i++) {
+		    if ((filter == null) || filter.accept(this, ss.get(i).getPath())) {
+		    	v.add(ss.get(i));
 		    }
 		}
-		return (File[])(v.toArray(new File[v.size()]));
+		return v;
 	}
-	
-	
-
-	
 }

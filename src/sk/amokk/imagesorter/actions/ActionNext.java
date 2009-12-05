@@ -32,11 +32,10 @@ public class ActionNext extends AbstractAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(ImageUtils.listImages == null)
+		
+		if(ImageUtils.getNextImage() == null)
 			return;
 		PanelCenter.getInstance().removeAll();
-		PanelCenter.getInstance().revalidate();
-		PanelCenter.getInstance().repaint();
 		BufferedImage bimg = ImageUtils.loadImage(ImageUtils.getNextImage());
 		PanelCenter.getInstance().add(new Picture(bimg));
 		PanelCenter.getInstance().revalidate();

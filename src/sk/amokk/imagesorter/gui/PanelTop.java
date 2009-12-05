@@ -77,8 +77,8 @@ public class PanelTop extends JPanel {
 						String choosedDir = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(choosedDir);
 			            //TODO fix this ugly line
-			            ImageUtils.listImages = ImageUtils.getImages(choosedDir);
-			            getJLabelCountImages().setText(""+ImageUtils.listImages.length);
+			            ImageUtils.loadImages(choosedDir);
+			            getJLabelCountImages().setText(""+ImageUtils.getListImages().size());
 			            PropertiesHandle.properties.setProperty("lastOpenedDir", choosedDir);
 					}
 				}
