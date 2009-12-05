@@ -2,7 +2,13 @@ package sk.amokk.imagesorter.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -56,11 +62,30 @@ public class ImageUtils {
 		return false;
 	}
 	
-	public static boolean moveImage(File image, String pathDestination) {
-		if (image.renameTo(new File(pathDestination, image.getName())))
-			return true;
-		else
-			return false;
+	public static boolean moveImage(File imageFile, String pathDestination) {
+		return (imageFile.renameTo(new File(pathDestination, imageFile.getName()))) ? true : false;
+	}
+	
+	public static void copyImage(File imageFile, String pathDestination) {
+	     
+	      InputStream in;
+	      OutputStream out;
+		try {
+			in = new FileInputStream(imageFile);
+			out = new FileOutputStream(pathDestination+File.separator+imageFile.getName());
+
+		      byte[] buf = new byte[1024];
+		      int len;
+		      while ((len = in.read(buf)) > 0){
+		        out.write(buf, 0, len);
+		      }
+		      in.close();
+		      out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static File getActualImage() {
