@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.AbstractAction;
 
+import org.apache.log4j.Logger;
+
 import sk.amokk.imagesorter.Picture;
 import sk.amokk.imagesorter.gui.PanelCenter;
 import sk.amokk.imagesorter.utils.ImageUtils;
@@ -14,7 +16,7 @@ public class ActionNext extends AbstractAction {
 	
 	private static final long serialVersionUID = 1L;
 	private static ActionNext instance;
-	private static int actualImage = 0;
+	private static final Logger log = Logger.getLogger(ActionNext.class.getName());
 	
 	
 
@@ -32,7 +34,7 @@ public class ActionNext extends AbstractAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		log.debug("ActionNext action fired");
 		if(ImageUtils.getNextImage() == null)
 			return;
 		PanelCenter.getInstance().removeAll();
@@ -40,8 +42,6 @@ public class ActionNext extends AbstractAction {
 		PanelCenter.getInstance().add(new Picture(bimg));
 		PanelCenter.getInstance().revalidate();
 		PanelCenter.getInstance().repaint();
-		actualImage++;
-		
 	}
 
 	

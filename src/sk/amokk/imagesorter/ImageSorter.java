@@ -15,6 +15,7 @@ import javax.swing.KeyStroke;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import sk.amokk.imagesorter.actions.ActionBack;
 import sk.amokk.imagesorter.actions.ActionNext;
 import sk.amokk.imagesorter.gui.MenuBarTop;
 import sk.amokk.imagesorter.gui.PanelBottom;
@@ -39,13 +40,15 @@ public class ImageSorter extends JFrame  {
 		initialize();
 	}
 	private void initialize() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setJMenuBar(MenuBarTop.getInstance());
 		this.setSize(640, 480);
 		this.setContentPane(getJContentPane());
 		this.setTitle("aImageSorter");
 		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "next");
 		this.getRootPane().getActionMap().put("next", ActionNext.getInstance());
+		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, 0), "prev");
+		this.getRootPane().getActionMap().put("prev", ActionBack.getInstance());
 		this.addWindowListener( new WindowAdapter() {
 		      public void windowClosing(WindowEvent e) {
 		        quit();
@@ -102,10 +105,8 @@ public class ImageSorter extends JFrame  {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				
 				PropertiesHandle.load();
 				ImageSorter.getJFrame().setVisible(true);
-				ImageSorter.getJFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}
 		});
 	}
