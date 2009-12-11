@@ -1,7 +1,7 @@
 TODO
-	click on button action
-	undo (aj viac krokove)
 	copy/move
+	undo (aj viac krokove)
+
 	thread for copy/move
 	thread for displaying image
 	search image by application/x-image instead of filename/extension

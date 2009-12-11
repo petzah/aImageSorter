@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingUtilities;
 
+import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -45,10 +46,14 @@ public class ImageSorter extends JFrame  {
 		this.setSize(640, 480);
 		this.setContentPane(getJContentPane());
 		this.setTitle("aImageSorter");
-		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "next");
+		
+		InputMap im = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "next");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, true), "prev");
 		this.getRootPane().getActionMap().put("next", ActionNext.getInstance());
-		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, 0), "prev");
 		this.getRootPane().getActionMap().put("prev", ActionBack.getInstance());
+		
+		
 		this.addWindowListener( new WindowAdapter() {
 		      public void windowClosing(WindowEvent e) {
 		        quit();

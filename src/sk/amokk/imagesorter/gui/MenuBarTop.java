@@ -1,12 +1,9 @@
 package sk.amokk.imagesorter.gui;
 
-import java.awt.Component;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -15,8 +12,6 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.ImageSorter;
-import sk.amokk.imagesorter.Picture;
-import sk.amokk.imagesorter.utils.ImageUtils;
 
 
 public class MenuBarTop extends JMenuBar {
@@ -133,14 +128,7 @@ public class MenuBarTop extends JMenuBar {
 			cutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK, true));
 			cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					BufferedImage bimg = ImageUtils.loadImage(new File("/mnt/data1/fotky/florida/new.york/dcim/100km763/100_2736.jpg"));
-					Picture jip = new Picture(bimg);
-		//			ImageSorter.getJFrame().remove(ImageSorter.getJFrame().getJImagePanel());
-					for (Component c : ImageSorter.getJFrame().getComponents()) {
-						System.out.println(c.getClass());
-					}
-					ImageSorter.getJFrame().add(jip);
-					ImageSorter.getJFrame().pack();
+					System.out.println("cut");
 				}
 			});
 			

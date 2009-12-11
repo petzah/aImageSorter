@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 
 import sk.amokk.imagesorter.FileRecursive;
 import sk.amokk.imagesorter.ImageSorter;
+import sk.amokk.imagesorter.Picture;
+import sk.amokk.imagesorter.gui.PanelCenter;
 
 public class ImageUtils {
 	private static List<File> listImages = new ArrayList<File>();
@@ -30,16 +32,36 @@ public class ImageUtils {
 	
 	private ImageUtils(){}
 	
-	public static BufferedImage loadImage(File f) {  
+	private static BufferedImage loadImage(File f) {
+		if(f == null)	return null;
 		BufferedImage bimg = null;  
 		try {     
-			bimg = ImageIO.read(f);  
+			bimg = ImageIO.read(f);
 		} catch (Exception e) {  
 			//e.printStackTrace();
 			log.error("can't read file: " + f);
 			JOptionPane.showMessageDialog(ImageSorter.getJFrame(), "Can't read file: " + f, "Can't read file", JOptionPane.ERROR_MESSAGE);
-		}  
+		}
 		return bimg;  
+	}
+	
+	public static void showImage(ENavigation nav) {
+		PanelCenter.getInstance().removeAll();
+		BufferedImage bimg;
+		switch (nav) {
+		case NEXT:
+			bimg = loadImage(getNextImage());
+			break;
+		case PREV:
+			bimg = loadImage(getPrevImage());
+			break;
+		default:
+			bimg = null;
+			break;
+		}
+		PanelCenter.getInstance().add(new Picture(bimg));
+		PanelCenter.getInstance().revalidate();
+		PanelCenter.getInstance().repaint();
 	}
 	
 	public static void loadImages(String directory) {
@@ -66,6 +88,8 @@ public class ImageUtils {
 	}
 	
 	public static void copyImage(File imageFile, String pathDestination) {
+		if (imageFile == null)
+			return;
 		try {
 			FileChannel srcChannel = new FileInputStream(imageFile).getChannel();
 			FileChannel dstChannel = new FileOutputStream(pathDestination + File.separator + imageFile.getName()).getChannel();
@@ -79,9 +103,7 @@ public class ImageUtils {
 		}
 	}
 
-	public static File getActualImage() {
-		return listIterator.next();
-	}
+
 	
 	public static File getNextImage() {
 		return (listIterator.hasNext()) ? listIterator.next() : null;

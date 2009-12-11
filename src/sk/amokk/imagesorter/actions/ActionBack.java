@@ -1,14 +1,12 @@
 package sk.amokk.imagesorter.actions;
 
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 
 import javax.swing.AbstractAction;
 
 import org.apache.log4j.Logger;
 
-import sk.amokk.imagesorter.Picture;
-import sk.amokk.imagesorter.gui.PanelCenter;
+import sk.amokk.imagesorter.utils.ENavigation;
 import sk.amokk.imagesorter.utils.ImageUtils;
 
 public class ActionBack extends AbstractAction {
@@ -29,13 +27,7 @@ public class ActionBack extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		log.debug("ActionBack action fired");
-		if(ImageUtils.getPrevImage() == null)
-			return;
-		PanelCenter.getInstance().removeAll();
-		BufferedImage bimg = ImageUtils.loadImage(ImageUtils.getPrevImage());
-		PanelCenter.getInstance().add(new Picture(bimg));
-		PanelCenter.getInstance().revalidate();
-		PanelCenter.getInstance().repaint();
+		ImageUtils.showImage(ENavigation.PREV);
 	}
 
 }

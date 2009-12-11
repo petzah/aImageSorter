@@ -31,6 +31,7 @@ public class PanelMover extends JPanel {
 	protected String path = null;
 	private JRadioButton jRadioButtonCopy = null;
 	private JRadioButton jRadioButtonMove = null;
+	private boolean moveRadioButtonSelected = true;
 	
 
 	public int getNumber() {
@@ -129,7 +130,6 @@ public class PanelMover extends JPanel {
 		if (moveButton == null) {
 			moveButton = new JButton();
 			moveButton.addActionListener(new ActionMove(this));
-			//moveButton.addActionListener(ActionNext.getInstance());
 			moveButton.setText(""+number);
 			moveButton.setFocusable(false);
 
@@ -160,7 +160,7 @@ public class PanelMover extends JPanel {
 	private JRadioButton getJRadioButtonMove() {
 		if (jRadioButtonMove == null) {
 			jRadioButtonMove = new JRadioButton("Move");
-			jRadioButtonMove.setSelected(true);
+			jRadioButtonMove.setSelected(moveRadioButtonSelected);
 			jRadioButtonMove.setFocusable(false);
 		}
 		return jRadioButtonMove;

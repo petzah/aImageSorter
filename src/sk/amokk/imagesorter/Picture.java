@@ -29,7 +29,7 @@ public class Picture extends JPanel {
 		int picHeight = pic.getHeight();
 		
 		
-		//if picture Width and Height is lower than parent window widtg and height then we don't need to scale it
+		//if picture Width and Height is lower than parent window width and height then we don't need to scale it
 		if ((picWidth <= parWidth) && (picHeight <= parHeight)) {
 			positionX = (parWidth - picWidth) / 2;
 			positionY = (parHeight - picHeight) / 2;

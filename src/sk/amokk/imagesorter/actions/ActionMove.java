@@ -24,6 +24,7 @@ public class ActionMove extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		log.debug("ActionMove action fired");
 		
 		if ((mover.getPath() == null) || mover.getPath().isEmpty() ) {
 			log.error("directory for moving isn't set");
@@ -31,7 +32,7 @@ public class ActionMove extends AbstractAction {
 		}
 		
 		log.info("moved to: " + mover.getPath());
-		File image = ImageUtils.getActualImage();
+		File image = ImageUtils.getPrevImage();
 		ImageUtils.copyImage(image, mover.getPath()); //copy -> move
 		ActionNext.getInstance().actionPerformed(e);
 	}
