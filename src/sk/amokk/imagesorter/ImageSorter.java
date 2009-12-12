@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -40,7 +41,7 @@ public class ImageSorter extends JFrame  {
 		this.setSize(640, 480);
 		this.setContentPane(getJContentPane());
 		this.setTitle("aImageSorter");
-		
+		UIManager.put("FileChooser.readOnly", Boolean.TRUE);
 		this.addWindowListener( new WindowAdapter() {
 		      public void windowClosing(WindowEvent e) {
 		        quit();
