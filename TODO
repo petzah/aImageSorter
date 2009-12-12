@@ -1,6 +1,5 @@
 TODO
 	undo (aj viac krokove)
-	JFileChooser -> disable edit;
 	thread for copy/move
 	thread for displaying image
 	search image by application/x-image instead of filename/extension
