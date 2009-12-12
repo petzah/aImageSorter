@@ -1,22 +1,21 @@
 package sk.amokk.imagesorter.gui;
 
 
-import javax.swing.JPanel;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.ImageSorter;
-import sk.amokk.imagesorter.actions.ActionMove;
+import sk.amokk.imagesorter.actions.ActionMover;
 import sk.amokk.imagesorter.utils.PropertiesHandler;
-
-import javax.swing.JRadioButton;
 
 
 public class PanelMover extends JPanel {
@@ -33,6 +32,11 @@ public class PanelMover extends JPanel {
 	private JRadioButton jRadioButtonMove = null;
 	private boolean moveRadioButtonSelected = true;
 	
+
+	public boolean isMoveRadioButtonSelected() {
+		return moveRadioButtonSelected;
+	}
+
 
 	public int getNumber() {
 		return number;
@@ -67,12 +71,9 @@ public class PanelMover extends JPanel {
 		this.add(getButtonChooser(), null);
 		this.add(getJRadioButtonCopy(), null);
 		this.add(getJRadioButtonMove(), null);
-		//TODO fix next two lines (bad hack to fire two actions by one keybinding)
+
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(""+number), "move");
-	//	this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released "+number), "next");
-		
-		this.getActionMap().put("move", new ActionMove(this));
-		//this.getActionMap().put("next", ActionNext.getInstance());
+		this.getActionMap().put("move", new ActionMover(this));
 	
 		ButtonGroup group = new ButtonGroup();
 		group.add(getJRadioButtonCopy());
@@ -129,7 +130,7 @@ public class PanelMover extends JPanel {
 	private JButton getButtonMove() {
 		if (moveButton == null) {
 			moveButton = new JButton();
-			moveButton.addActionListener(new ActionMove(this));
+			moveButton.addActionListener(new ActionMover(this));
 			moveButton.setText(""+number);
 			moveButton.setFocusable(false);
 
@@ -161,6 +162,13 @@ public class PanelMover extends JPanel {
 		if (jRadioButtonMove == null) {
 			jRadioButtonMove = new JRadioButton("Move");
 			jRadioButtonMove.setSelected(moveRadioButtonSelected);
+			jRadioButtonMove.addItemListener(new java.awt.event.ItemListener() {
+				public void itemStateChanged(java.awt.event.ItemEvent e) {
+					moveRadioButtonSelected = !moveRadioButtonSelected;
+				}
+			});
+			
+			
 			jRadioButtonMove.setFocusable(false);
 		}
 		return jRadioButtonMove;

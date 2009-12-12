@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -25,41 +24,48 @@ import sk.amokk.imagesorter.gui.PanelCenter;
 public class ImageUtils {
 	private static List<File> listImages = new ArrayList<File>();
 	
-	
-
 	private static final Logger log = Logger.getLogger(ImageUtils.class.getName());
-	private static ListIterator<File> listIterator = listImages.listIterator();
 	
+	private static BufferedImage actualImage = null;
+	
+	private static int indexOfImage = -1;
+
 	private ImageUtils(){}
 	
 	private static BufferedImage loadImage(File f) {
 		if(f == null)	return null;
 		BufferedImage bimg = null;  
-		try {     
+		try {
 			bimg = ImageIO.read(f);
 		} catch (Exception e) {  
 			//e.printStackTrace();
 			log.error("can't read file: " + f);
 			JOptionPane.showMessageDialog(ImageSorter.getJFrame(), "Can't read file: " + f, "Can't read file", JOptionPane.ERROR_MESSAGE);
 		}
+		
 		return bimg;  
 	}
 	
 	public static void showImage(ENavigation nav) {
 		PanelCenter.getInstance().removeAll();
-		BufferedImage bimg;
 		switch (nav) {
 		case NEXT:
-			bimg = loadImage(getNextImage());
+			indexOfImage++;
+			actualImage = loadImage(listImages.get(indexOfImage));
 			break;
 		case PREV:
-			bimg = loadImage(getPrevImage());
+			if(indexOfImage == 0) {
+				JOptionPane.showMessageDialog(ImageSorter.getJFrame(), "You are on beginning", "Info", JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}
+			indexOfImage--;
+			actualImage = loadImage(listImages.get(indexOfImage));
 			break;
 		default:
-			bimg = null;
 			break;
 		}
-		PanelCenter.getInstance().add(new Picture(bimg));
+		log.debug("showing Image with index number: " + indexOfImage );
+		PanelCenter.getInstance().add(new Picture(actualImage));
 		PanelCenter.getInstance().revalidate();
 		PanelCenter.getInstance().repaint();
 	}
@@ -73,26 +79,37 @@ public class ImageUtils {
 	    FileRecursive f = new FileRecursive(directory);
 	    List<File> a = f.listFilesRecursive(filter);
 	    for (File file : a) {
-	    	System.out.println(file.getPath());
+	    	log.debug("found file: " + file.getPath());
 	    }
 	    ImageUtils.listImages = a;
-	    listIterator = listImages.listIterator();
 	}
 	
-	public static boolean copyImage(String pathSource, String pathDestination) {
-		return false;
+		
+
+	public static void moveImage(String pathDestination) {
+		File imageFile = listImages.get(indexOfImage);
+		copyImage(pathDestination);
+		if (!imageFile.delete()) {
+			log.error("File: " + imageFile.getAbsolutePath() + " was copied to destination directory: " + pathDestination + "" +
+					" but not removed from source directory");
+		}
+		else {
+			log.debug("removed: " + imageFile.getAbsolutePath());
+			//remove also from list
+			listImages.remove(indexOfImage);
+			//because one was removed we need to decrease index 
+			indexOfImage--;
+		}
 	}
 	
-	public static boolean moveImage(File imageFile, String pathDestination) {
-		return (imageFile.renameTo(new File(pathDestination, imageFile.getName()))) ? true : false;
-	}
-	
-	public static void copyImage(File imageFile, String pathDestination) {
+	public static void copyImage(String pathDestination) {
+		File imageFile = listImages.get(indexOfImage);
 		if (imageFile == null)
 			return;
 		try {
 			FileChannel srcChannel = new FileInputStream(imageFile).getChannel();
 			FileChannel dstChannel = new FileOutputStream(pathDestination + File.separator + imageFile.getName()).getChannel();
+			log.debug("copying " + imageFile.getName() + " to " + pathDestination);
 			dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
 			srcChannel.close();
 			dstChannel.close();
@@ -104,21 +121,15 @@ public class ImageUtils {
 	}
 
 
-	
-	public static File getNextImage() {
-		return (listIterator.hasNext()) ? listIterator.next() : null;
+
+	public static BufferedImage getActualImage() {
+		return actualImage;
 	}
-	
-	public static File getPrevImage() {
-		return (listIterator.hasPrevious()) ? listIterator.previous() : null;
-	}
-	
+
+
 	public static List<File> getListImages() {
 		return listImages;
 	}
-
-	public static void setListImages(List<File> listImages) {
-		ImageUtils.listImages = listImages;
-	}
+	
 
 }

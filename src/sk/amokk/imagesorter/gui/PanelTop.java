@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import sk.amokk.imagesorter.ImageSorter;
+import sk.amokk.imagesorter.utils.ENavigation;
 import sk.amokk.imagesorter.utils.ImageUtils;
 import sk.amokk.imagesorter.utils.PropertiesHandler;
 
@@ -76,8 +77,8 @@ public class PanelTop extends JPanel {
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						String choosedDir = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(choosedDir);
-			            //TODO fix this ugly line
 			            ImageUtils.loadImages(choosedDir);
+			            ImageUtils.showImage(ENavigation.NEXT);
 			            getJLabelCountImages().setText(""+ImageUtils.getListImages().size());
 			            PropertiesHandler.properties.setProperty("lastOpenedDir", choosedDir);
 					}
