@@ -92,11 +92,6 @@ public class MenuBarTop extends JMenuBar {
 		return helpMenu;
 	}
 
-	/**
-	 * This method initializes jMenuItem	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
 	private JMenuItem getExitMenuItem() {
 		if (exitMenuItem == null) {
 			exitMenuItem = new JMenuItem();
@@ -110,11 +105,6 @@ public class MenuBarTop extends JMenuBar {
 		return exitMenuItem;
 	}
 
-	/**
-	 * This method initializes jMenuItem	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
 	private JMenuItem getAboutMenuItem() {
 		if (aboutMenuItem == null) {
 			aboutMenuItem = new JMenuItem();
@@ -148,11 +138,6 @@ public class MenuBarTop extends JMenuBar {
 		return cutMenuItem;
 	}
 
-	/**
-	 * This method initializes jMenuItem	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
 	private JMenuItem getCopyMenuItem() {
 		if (copyMenuItem == null) {
 			copyMenuItem = new JMenuItem();
@@ -163,11 +148,6 @@ public class MenuBarTop extends JMenuBar {
 		return copyMenuItem;
 	}
 
-	/**
-	 * This method initializes jMenuItem	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
 	private JMenuItem getPasteMenuItem() {
 		if (pasteMenuItem == null) {
 			pasteMenuItem = new JMenuItem();
@@ -178,11 +158,6 @@ public class MenuBarTop extends JMenuBar {
 		return pasteMenuItem;
 	}
 
-	/**
-	 * This method initializes jMenuItem	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
 	private JMenuItem getSaveMenuItem() {
 		if (saveMenuItem == null) {
 			saveMenuItem = new JMenuItem();
@@ -193,18 +168,12 @@ public class MenuBarTop extends JMenuBar {
 		return saveMenuItem;
 	}
 
-	/**
-	 * This method initializes jMenu	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
 	private JMenu getJMenu() {
 		if (jMenu == null) {
 			jMenu = new JMenu();
 		}
 		return jMenu;
 	}
-
 
 	private JMenu getGoMenu() {
 		if (goMenu == null) {
@@ -218,7 +187,6 @@ public class MenuBarTop extends JMenuBar {
 		return goMenu;
 	}
 
-	
 	private JMenuItem getGoPrevMenuItem() {
 		if (goPrevMenuItem == null) {
 			goPrevMenuItem = new JMenuItem("Previous");
@@ -250,7 +218,6 @@ public class MenuBarTop extends JMenuBar {
 		}
 		return goBeginMenuItem;
 	}
-
 	
 	private JMenuItem getGoEndMenuItem() {
 		if (goEndMenuItem == null) {
