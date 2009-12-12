@@ -1,15 +1,20 @@
 package sk.amokk.imagesorter.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import sk.amokk.imagesorter.ImageSorter;
 
 public class PropertiesHandler {
 	
-	private static String DEF_PROP_FILE = "default.properties";
-	private static String APP_PROP_FILE = "application.properties";
+	private static File APP_PROP_FILE = new File("application.properties");
+	private static InputStream defaultProperties = ImageSorter.class.getResourceAsStream("/resources/properties/default.properties");
+	
 	
 	private static Properties defProp = new Properties();
 	private static Properties appProp = new Properties(defProp);
@@ -35,11 +40,10 @@ public class PropertiesHandler {
 		
 		FileInputStream propFile;
 		try {
-			propFile = new FileInputStream(DEF_PROP_FILE);
-			defProp.load(propFile);
-			propFile.close();
+			defProp.load(defaultProperties);
 			
 			// now load properties from last invocation
+			APP_PROP_FILE.createNewFile(); //if program is runned first time, create file
 			propFile = new FileInputStream(APP_PROP_FILE);
 			appProp.load(propFile);
 			propFile.close();

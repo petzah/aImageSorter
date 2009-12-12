@@ -60,7 +60,6 @@ public class PanelBottom extends JPanel {
 			this.add(panels.get(pom), 		new GridBagConstraints(0,pom,1,1,1,0,GridBagConstraints.LINE_END,GridBagConstraints.HORIZONTAL,ins,0,0));
 		}
 		this.add(getJSpinner(),				new GridBagConstraints(1,pom-1,1,1,0,0,GridBagConstraints.LINE_END,GridBagConstraints.NONE,ins,0,0));
-		System.out.println(pom);
 		this.revalidate();
 		this.repaint();
 	}
