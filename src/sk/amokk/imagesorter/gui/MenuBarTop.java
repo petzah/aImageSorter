@@ -12,6 +12,10 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.ImageSorter;
+import sk.amokk.imagesorter.actions.ActionBack;
+import sk.amokk.imagesorter.actions.ActionNext;
+import sk.amokk.imagesorter.utils.ENavigation;
+import sk.amokk.imagesorter.utils.ImageUtils;
 
 
 public class MenuBarTop extends JMenuBar {
@@ -26,6 +30,12 @@ public class MenuBarTop extends JMenuBar {
 	private JMenuItem pasteMenuItem;
 	private JMenuItem copyMenuItem;
 	private JMenuItem cutMenuItem;
+	private JMenu jMenu = null;
+	private JMenu goMenu = null;
+	private JMenuItem goPrevMenuItem = null;
+	private JMenuItem goNextMenuItem = null;
+	private JMenuItem goBeginMenuItem = null;
+	private JMenuItem goEndMenuItem = null;
 	
 	private MenuBarTop() {
 		super();
@@ -35,6 +45,7 @@ public class MenuBarTop extends JMenuBar {
 	private void initialize() {
 		this.add(getFileMenu());
 		this.add(getEditMenu());
+		this.add(getGoMenu());
 		this.add(getHelpMenus());
 	}
 
@@ -76,6 +87,7 @@ public class MenuBarTop extends JMenuBar {
 			helpMenu = new JMenu();
 			helpMenu.setText("Help");
 			helpMenu.add(getAboutMenuItem());
+			helpMenu.add(getJMenu());
 		}
 		return helpMenu;
 	}
@@ -179,6 +191,78 @@ public class MenuBarTop extends JMenuBar {
 					Event.CTRL_MASK, true));
 		}
 		return saveMenuItem;
+	}
+
+	/**
+	 * This method initializes jMenu	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenu() {
+		if (jMenu == null) {
+			jMenu = new JMenu();
+		}
+		return jMenu;
+	}
+
+
+	private JMenu getGoMenu() {
+		if (goMenu == null) {
+			goMenu = new JMenu("Go");
+			goMenu.add(getGoBeginMenuItem());
+			goMenu.add(getGoPrevMenuItem());
+			goMenu.add(getGoNextMenuItem());
+			goMenu.add(getGoEndMenuItem());
+			
+		}
+		return goMenu;
+	}
+
+	
+	private JMenuItem getGoPrevMenuItem() {
+		if (goPrevMenuItem == null) {
+			goPrevMenuItem = new JMenuItem("Previous");
+			goPrevMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, true));
+			goPrevMenuItem.addActionListener(ActionBack.getInstance());
+		}
+		return goPrevMenuItem;
+	}
+
+	private JMenuItem getGoNextMenuItem() {
+		if (goNextMenuItem == null) {
+			goNextMenuItem = new JMenuItem("Next");
+			goNextMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true));
+			goNextMenuItem.addActionListener(ActionNext.getInstance());
+				
+		}
+		return goNextMenuItem;
+	}
+
+	private JMenuItem getGoBeginMenuItem() {
+		if (goBeginMenuItem == null) {
+			goBeginMenuItem = new JMenuItem("Begin");
+			goBeginMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_HOME, 0, true));
+			goBeginMenuItem.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					ImageUtils.showImage(ENavigation.BEGINNING);
+				}
+			});
+		}
+		return goBeginMenuItem;
+	}
+
+	
+	private JMenuItem getGoEndMenuItem() {
+		if (goEndMenuItem == null) {
+			goEndMenuItem = new JMenuItem("End");
+			goEndMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_END, 0, true));
+			goEndMenuItem.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					ImageUtils.showImage(ENavigation.END);
+				}
+			});
+		}
+		return goEndMenuItem;
 	}
 
 }

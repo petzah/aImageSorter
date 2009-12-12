@@ -50,6 +50,10 @@ public class ImageUtils {
 		PanelCenter.getInstance().removeAll();
 		switch (nav) {
 		case NEXT:
+			if(indexOfImage == listImages.size()-1) {
+				JOptionPane.showMessageDialog(ImageSorter.getJFrame(), "You are on end", "Info", JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}
 			indexOfImage++;
 			actualImage = loadImage(listImages.get(indexOfImage));
 			break;
@@ -59,11 +63,17 @@ public class ImageUtils {
 				break;
 			}
 			indexOfImage--;
-			actualImage = loadImage(listImages.get(indexOfImage));
+			break;
+		case BEGINNING:
+			indexOfImage = 0;
+			break;
+		case END:
+			indexOfImage = listImages.size()-1;
 			break;
 		default:
 			break;
 		}
+		actualImage = loadImage(listImages.get(indexOfImage));
 		log.debug("showing Image with index number: " + indexOfImage );
 		PanelCenter.getInstance().add(new Picture(actualImage));
 		PanelCenter.getInstance().revalidate();
