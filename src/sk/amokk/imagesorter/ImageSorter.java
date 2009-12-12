@@ -1,23 +1,17 @@
 package sk.amokk.imagesorter;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 
 import javax.swing.SwingUtilities;
 
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.KeyStroke;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import sk.amokk.imagesorter.actions.ActionBack;
-import sk.amokk.imagesorter.actions.ActionNext;
 import sk.amokk.imagesorter.gui.MenuBarTop;
 import sk.amokk.imagesorter.gui.PanelBottom;
 import sk.amokk.imagesorter.gui.PanelCenter;
@@ -46,13 +40,6 @@ public class ImageSorter extends JFrame  {
 		this.setSize(640, 480);
 		this.setContentPane(getJContentPane());
 		this.setTitle("aImageSorter");
-		
-		InputMap im = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "next");
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, true), "prev");
-		this.getRootPane().getActionMap().put("next", ActionNext.getInstance());
-		this.getRootPane().getActionMap().put("prev", ActionBack.getInstance());
-		
 		
 		this.addWindowListener( new WindowAdapter() {
 		      public void windowClosing(WindowEvent e) {
@@ -101,7 +88,6 @@ public class ImageSorter extends JFrame  {
 		 }
 		 return jPanelTop;
 	}
-
 
 	
 	/**

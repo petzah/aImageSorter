@@ -73,6 +73,7 @@ public class ImageUtils {
 		default:
 			break;
 		}
+		if ((indexOfImage < 0) || (indexOfImage > listImages.size()-1)) return;
 		actualImage = loadImage(listImages.get(indexOfImage));
 		log.debug("showing Image with index number: " + indexOfImage );
 		PanelCenter.getInstance().add(new Picture(actualImage));

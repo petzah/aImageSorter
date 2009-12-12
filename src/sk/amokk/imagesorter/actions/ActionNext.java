@@ -2,10 +2,10 @@ package sk.amokk.imagesorter.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.KeyStroke;
 
 import org.apache.log4j.Logger;
 
@@ -18,16 +18,19 @@ public class ActionNext extends AbstractAction {
 	private static ActionNext instance;
 	private static final Logger log = Logger.getLogger(ActionNext.class.getName());
 	
-	private static final URL imageURL = ImageSorter.class.getResource("/images/addCategory.png");
-	private static final String NAME = "Next";
-	private static final String DESCRIPTION = "Show next image";
+	private static ImageIcon smallIcon = new ImageIcon(ImageSorter.class.getResource("/images/right_16.png"));
+	private static ImageIcon largeIcon = new ImageIcon(ImageSorter.class.getResource("/images/right_32.png"));
+	private static final String name = "Next";
+	private static final String description = "Show next image";
 	
 
-	public ActionNext() {
-		super(NAME, new ImageIcon(imageURL));
-		putValue(SHORT_DESCRIPTION, DESCRIPTION);
+	private ActionNext() {
+		super(name);
+		putValue(SHORT_DESCRIPTION, description);
 		putValue(MNEMONIC_KEY, KeyEvent.VK_SPACE);
-		
+		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true));
+		putValue(SMALL_ICON, smallIcon);
+		putValue(LARGE_ICON_KEY, largeIcon);
 	}
 
 	

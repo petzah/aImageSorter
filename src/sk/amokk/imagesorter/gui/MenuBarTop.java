@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import sk.amokk.imagesorter.ImageSorter;
-import sk.amokk.imagesorter.actions.ActionBack;
+import sk.amokk.imagesorter.actions.ActionPrev;
 import sk.amokk.imagesorter.actions.ActionNext;
 import sk.amokk.imagesorter.utils.ENavigation;
 import sk.amokk.imagesorter.utils.ImageUtils;
@@ -191,7 +191,7 @@ public class MenuBarTop extends JMenuBar {
 		if (goPrevMenuItem == null) {
 			goPrevMenuItem = new JMenuItem("Previous");
 			goPrevMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, true));
-			goPrevMenuItem.addActionListener(ActionBack.getInstance());
+			goPrevMenuItem.setAction(ActionPrev.getInstance());
 		}
 		return goPrevMenuItem;
 	}
@@ -199,9 +199,7 @@ public class MenuBarTop extends JMenuBar {
 	private JMenuItem getGoNextMenuItem() {
 		if (goNextMenuItem == null) {
 			goNextMenuItem = new JMenuItem("Next");
-			goNextMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true));
-			goNextMenuItem.addActionListener(ActionNext.getInstance());
-				
+			goNextMenuItem.setAction(ActionNext.getInstance());
 		}
 		return goNextMenuItem;
 	}
