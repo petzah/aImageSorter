@@ -55,7 +55,6 @@ public class MenuBarTop extends JMenuBar {
 		return instance;
 	}
 
-	
 	private JMenu getFileMenu() {
 		if (fileMenu == null) {
 			fileMenu = new JMenu();
