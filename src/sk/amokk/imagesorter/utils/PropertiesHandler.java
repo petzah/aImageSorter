@@ -13,15 +13,22 @@ import sk.amokk.imagesorter.ImageSorter;
 public class PropertiesHandler {
 	
 	private static File APP_PROP_FILE = new File("application.properties");
-	private static InputStream defaultProperties = ImageSorter.class.getResourceAsStream("/resources/properties/default.properties");
+	private static InputStream defPropInputStream = ImageSorter.class.getResourceAsStream("/properties/default.properties");
 	
 	
-	private static Properties defProp = new Properties();
-	private static Properties appProp = new Properties(defProp);
+	private static Properties defProp;
+	private static Properties appProp;
 	
-	public static Properties properties;
+	private static Properties properties;
 	
 	private PropertiesHandler() {}
+	
+	public static Properties getProperties() {
+		if (properties == null) {
+			properties = load();
+		}
+		return properties;
+	}
 	
 	public static void store() {
 		FileOutputStream out;
@@ -36,18 +43,19 @@ public class PropertiesHandler {
 		}
 	}
 	
-	public static void load() {
-		
+	private static Properties load() {
+		defProp = new Properties();
 		FileInputStream propFile;
 		try {
-			defProp.load(defaultProperties);
+			defProp.load(defPropInputStream);
+			defPropInputStream.close();
 			
+			appProp = new Properties(defProp);
 			// now load properties from last invocation
 			APP_PROP_FILE.createNewFile(); //if program is runned first time, create file
 			propFile = new FileInputStream(APP_PROP_FILE);
 			appProp.load(propFile);
 			propFile.close();
-				
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,11 +63,9 @@ public class PropertiesHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		properties = appProp;
+		return appProp;
 	}
-
-
+	
 }
 
 

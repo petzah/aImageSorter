@@ -12,6 +12,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import sk.amokk.imagesorter.utils.PropertiesHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,17 +68,18 @@ public class PanelBottom extends JPanel {
 
 	private JSpinner getJSpinner() {
 		if (jSpinner == null) {
-			SpinnerNumberModel model = new SpinnerNumberModel(1, 1, MAX_MOVERS, 1);
+			String prop = (String) PropertiesHandler.getProperties().getProperty("numMovers");
+			int numMovers =  Integer.parseInt(prop);
+			SpinnerNumberModel model = new SpinnerNumberModel(numMovers, 1, MAX_MOVERS, 1);
 			jSpinner = new JSpinner(model);
 			JFormattedTextField ftf = ((JSpinner.DefaultEditor)jSpinner.getEditor()).getTextField();
 			ftf.setEditable(false);
 			ftf.setBackground(Color.WHITE);
 			jSpinner.addChangeListener(new ChangeListener() {
-				
 				@Override
 				public void stateChanged(ChangeEvent e) {
 					setMoversFields();
-					
+					PropertiesHandler.getProperties().setProperty("numMovers", jSpinner.getModel().getValue().toString());
 				}
 			});
 		}

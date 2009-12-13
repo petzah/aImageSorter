@@ -80,7 +80,7 @@ public class PanelTop extends JPanel {
 			            ImageUtils.loadImages(choosedDir);
 			            ImageUtils.showImage(ENavigation.NEXT);
 			            getJLabelCountImages().setText(""+ImageUtils.getListImages().size());
-			            PropertiesHandler.properties.setProperty("lastOpenedDir", choosedDir);
+			            PropertiesHandler.getProperties().setProperty("lastOpenedDir", choosedDir);
 					}
 				}
 			});
@@ -98,7 +98,7 @@ public class PanelTop extends JPanel {
 
 	private JFileChooser getJFileChooserImagesDirectory() {
 		if (jFileChooserGetImagesDirectory == null) {
-			jFileChooserGetImagesDirectory = new JFileChooser(PropertiesHandler.properties.getProperty("lastOpenedDir"));
+			jFileChooserGetImagesDirectory = new JFileChooser(PropertiesHandler.getProperties().getProperty("lastOpenedDir"));
 			jFileChooserGetImagesDirectory.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		}
 		return jFileChooserGetImagesDirectory;

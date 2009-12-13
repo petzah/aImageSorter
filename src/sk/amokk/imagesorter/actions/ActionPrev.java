@@ -21,8 +21,8 @@ public class ActionPrev extends AbstractAction {
 	private static String name = "Prev";
 	private static final Logger log = Logger.getLogger(ActionPrev.class.getName());
 	private static String description = "show previous image";
-	private static ImageIcon smallIcon = new ImageIcon(ImageSorter.class.getResource("/resources/images/left_16.png"));
-	private static ImageIcon largeIcon = new ImageIcon(ImageSorter.class.getResource("/resources/images/left_32.png"));
+	private static ImageIcon smallIcon = new ImageIcon(ImageSorter.class.getResource("/images/left_16.png"));
+	private static ImageIcon largeIcon = new ImageIcon(ImageSorter.class.getResource("/images/left_32.png"));
 	
 	private ActionPrev() {
 		super(name);

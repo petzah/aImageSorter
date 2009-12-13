@@ -50,7 +50,7 @@ public class ImageSorter extends JFrame  {
 		
 		//initialize log4j
 		//PropertyConfigurator.configure("log4j.properties");
-		PropertyConfigurator.configure(ImageSorter.class.getResource("/resources/properties/log4j.properties"));
+		PropertyConfigurator.configure(ImageSorter.class.getResource("/properties/log4j.properties"));
 		log.info("application started");
 	}
 	
@@ -98,7 +98,6 @@ public class ImageSorter extends JFrame  {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				PropertiesHandler.load();
 				ImageSorter.getJFrame().setVisible(true);
 			}
 		});

@@ -114,7 +114,7 @@ public class PanelMover extends JPanel {
 					if (returnValue == JFileChooser.APPROVE_OPTION) {
 						path = fc.getSelectedFile().getAbsolutePath();
 			            getJTextField().setText(path);
-			            PropertiesHandler.properties.setProperty("lastDestDir", path);
+			            PropertiesHandler.getProperties().setProperty("lastDestDir", path);
 					}
 				}
 			});
@@ -140,7 +140,7 @@ public class PanelMover extends JPanel {
 
 	private JFileChooser getJFileChooser() {
 		if (jFileChooser == null) {
-			jFileChooser = new JFileChooser(PropertiesHandler.properties.getProperty("lastDestDir"));
+			jFileChooser = new JFileChooser(PropertiesHandler.getProperties().getProperty("lastDestDir"));
 			jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			
 		}

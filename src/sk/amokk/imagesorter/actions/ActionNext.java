@@ -18,8 +18,8 @@ public class ActionNext extends AbstractAction {
 	private static ActionNext instance;
 	private static final Logger log = Logger.getLogger(ActionNext.class.getName());
 	
-	private static ImageIcon smallIcon = new ImageIcon(ImageSorter.class.getResource("/resources/images/right_16.png"));
-	private static ImageIcon largeIcon = new ImageIcon(ImageSorter.class.getResource("/resources/images/right_32.png"));
+	private static ImageIcon smallIcon = new ImageIcon(ImageSorter.class.getResource("/images/right_16.png"));
+	private static ImageIcon largeIcon = new ImageIcon(ImageSorter.class.getResource("/images/right_32.png"));
 	private static final String name = "Next";
 	private static final String description = "Show next image";
 	
